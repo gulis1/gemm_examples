@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
     cudaMemcpy(a_GPU, a, N*N*sizeof(half), cudaMemcpyHostToDevice);
     cudaMemcpy(b_GPU, b, N*N*sizeof(half), cudaMemcpyHostToDevice);
 
-    dim3 block_size(256, 2); // 128 * 2 = 128 hilos = 4 warps => Cada bloque calcula sub-matriz de 32x32
+    dim3 block_size(256, 2); // 256 * 2 = 512 hilos = 16 warps (8 x 2)
     dim3 grid_size(N/128, N/32);
 
     matrix_mul<<< grid_size, block_size >>>(a_GPU, b_GPU, c_GPU, N);
